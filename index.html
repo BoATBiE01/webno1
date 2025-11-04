@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BBH+Sans+Bartle&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=TASA+Explorer:wght@400..800&display=swap" rel="stylesheet">
+<title>Tubling official</title>
+
+<style>
+section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+  transition: opacity 1s ease, transform 1s ease;
+  opacity: 0.3;
+  transform: scale(0.98);
+}
+
+section.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+/* Reset */
+* { margin:0; padding:0; box-sizing:border-box; }
+
+p{
+    font-family: "Prompt", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+body {
+  font-family: "Prompt", sans-serif;
+  background: #000;
+  color: #fff;
+}
+hr { border: 1px solid #fff; width: 50%; margin: 20px auto; }
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top:0; left:0;
+  width:100%;
+  height:70px;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(8px);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
+}
+.nav-container {
+  width:100%;
+  max-width:2000px;
+  padding:0 60px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo {
+  font-family: "BBH Sans Bartle", sans-serif;
+  font-size:30px;
+  color:white;
+  font-weight:400;
+}
+.nav-links {
+  display:flex;
+  align-items:center;
+  gap:25px;
+}
+.nav-links a {
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+  letter-spacing:1px;
+}
+.nav-links a:hover { color:#ccc; }
+
+/* ✅ Search Bar */
+.search-form {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 4px 10px;
+  transition: background 0.3s ease;
+}
+
+.search-form:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.search-form input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  width: 100px;
+  transition: width 0.3s ease;
+}
+
+.search-form input:focus {
+  width: 150px;
+}
+
+.search-form button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.search-form button:hover {
+  color: #ccc;
+}
+/* 🔸 Hamburger Button */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+.hamburger span {
+  width: 25px; height: 3px;
+  background: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* ✅ Mobile Menu Style */
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+}
+
+/* 🔹 Hamburger Animation (เปิดเมนู) */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translateY(8px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-8px);
+}
+
+/* ปรับขนาดโลโก้ */
+@media (max-width: 600px) {
+  .logo { font-size: 22px; }
+}
+
+/* Hero Section */
+.hero {
+  position:relative;
+  width:100%;
+  height:100dvh;
+  overflow:hidden;
+}
+.hero video {
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  transition: opacity 0.5s ease-out;
+}
+.hero .content {
+  position:absolute;
+  bottom:50px;
+  width:100%;
+  text-align:center;
+  z-index:1;
+  padding:0 20px;
+  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+}
+.hero .content p {
+  color: rgba(255,255,255,0.5);
+  font-size:1.2rem;
+  font-weight:300;
+}
+
+/* About Section */
+main { background:black; padding:100px 20px 50px 20px; }
+
+.about-section {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:60px;
+  max-width:2500px;
+  margin:0 auto;
+  padding:80px 80px;
+}
+.about-text { flex:1; }
+.about-text h2 { font-size:3rem; margin-bottom:20px; }
+.about-text p { font-size:1.1rem; line-height:1.8; margin-bottom:15px; color:#ddd; }
+
+.about-image img {
+  width:100%; max-width:500px; border-radius:20px;
+  box-shadow:0 0 20px rgba(255,255,255,0.1);
+  transition: transform 0.4s ease;
+  margin-left:100px;
+}
+.about-image img:hover { transform:scale(1.03); }
+
+/* Fade + Slide Animation */
+.fade-left, .fade-right {
+  opacity:0;
+  transform: translateY(50px);
+  transition:opacity 1s ease-out, transform 1s ease-out;
+}
+.fade-left { transform:translateX(-60px); }
+.fade-right { transform:translateX(60px); }
+.fade-left.visible, .fade-right.visible { opacity:1; transform:translateX(0); }
+
+.Ani:hover { transform:scale(1.1); }
+
+/* What We Do */
+.whatwedo {
+  background:#000;
+  text-align:center;
+  padding:100px 20px;
+}
+.whatwedo h2 {
+  font-size:24px;
+  margin-bottom:40px;
+  animation: fadeInDown 1s ease;
+}
+
+/* ✅ SLIDER FIXED */
+.slider-container {
+  position: relative;
+  width: 960px;
+  height: 540px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(255,255,255,0.1);
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.6s ease;
+  width: 100%;
+}
+
+.slide {
+  flex: 0 0 100%;        /* ✅ แก้ให้แต่ละ slide กว้างเท่ากับ container */
+  height: 540px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 15px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Arrows */
+.arrow {
+  font-size:48px;
+  color:#fff;
+  cursor:pointer;
+  user-select:none;
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  transition:all 0.3s ease;
+  background:transparent;
+  padding:12px 20px;
+  backdrop-filter:blur(4px);
+  box-shadow:0 0 10px rgba(255,255,255,0.2);
+}
+.arrow.left { left:-5px; }
+.arrow.right { right:-5px; }
+.arrow:hover {
+  background:rgba(255,255,255,0.35);
+  transform:translateY(-50%) scale(1.1);
+  box-shadow:0 0 20px rgba(255,255,255,0.5);
+}
+
+/* Dots */
+.dots {
+  margin-top:20px;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+}
+.dots span {
+  width:8px; height:8px;
+  background:#777;
+  border-radius:50%;
+  display:inline-block;
+  transition:background 0.3s ease;
+}
+.dots span.active { background:#fff; }
+
+/* Desktop */
+@media (min-width: 1025px) {
+  .about-section { flex-direction: row; padding: 100px 120px; }
+  .about-text h2 { font-size: 3rem; }
+  .slider-container { width: 960px; height: 540px; }
+}
+
+/* iPad */
+@media (max-width: 1024px) and (min-width: 601px) {
+  .navbar { height:65px; }
+  .nav-container { padding:0 30px; }
+  .logo { font-size:24px; }
+  .nav-links a { font-size:15px; }
+
+  .about-section {
+    flex-direction:column;
+    text-align:center;
+    gap:40px;
+    padding:80px 40px;
+  }
+
+  .about-image img { max-width:400px; margin-left:0; }
+
+  .slider-container { width:720px; height:405px; }
+  .arrow { font-size:36px; }
+}
+
+/* iPhone */
+@media (max-width: 600px) {
+  .navbar { height:55px; }
+  .logo { font-size:18px; }
+  .nav-container { padding:0 15px; }
+  .nav-links { gap:10px; }
+  .nav-links a { font-size:13px; }
+
+  .hero { height:80dvh; }
+
+  .about-section {
+    flex-direction:column;
+    text-align:center;
+    padding:60px 20px;
+  }
+
+  .about-text h2 { font-size:1.8rem; }
+  .about-text p { font-size:0.9rem; }
+
+  .about-image img {
+    max-width:85%;
+    margin-left:0;
+  }
+
+  .slider-container {
+    width:100%;
+    aspect-ratio:16/9;
+    height:auto;
+  }
+
+  .slide {
+    height:auto;
+    aspect-ratio:16/9;
+  }
+
+  .arrow {
+    font-size:28px;
+    padding:8px 12px;
+    background:rgba(0,0,0,0.5);
+  }
+
+  .dots span { width:6px; height:6px; }
+}
+
+.reviews {
+  background: linear-gradient(135deg, #000000 0%, #080808 40%, #909090 150%);
+  text-align: center;
+  padding: 100px 20px;
+  color: #fff;
+  font-family: "Prompt", sans-serif;
+}
+
+.reviews h3 {
+  text-transform: uppercase;
+  color: #ccc;
+  letter-spacing: 1px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.reviews h2 {
+  font-size: 60px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.review-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.visit-count {
+  font-size: 18px;
+  color: #bbb;
+  margin-top: 5px;
+}
+.visit-count i {
+  color: #ffffff;
+  margin-right: 8px;
+}
+
+/* กล่องรีวิว */
+.review-section {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.review-box {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  color: #fff;
+  max-width: 500px;
+  padding: 40px 30px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  overflow: hidden; /* ✅ ป้องกันกระตุกตอน fade */
+}
+.review-box.fade-out {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.stars {
+  color: rgb(255, 191, 0);
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.review-box p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 30px;
+  color: #f5f5f5;
+}
+
+.reviewer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.reviewer img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+}
+
+@media(max-width:700px){
+  .review-section {
+    flex-direction: column;
+    align-items: center;
+  }
+  .reviews h2 {
+    font-size: 38px;
+  }
+}
+
+.services {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  padding: 120px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.services h2 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+}
+
+.services .sub {
+  color: #ccc;
+  font-size: 1.1rem;
+  margin-bottom: 80px;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.service-box {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+  transition: transform 0.4s ease, background 0.4s ease;
+}
+
+.service-box:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-10px) scale(1.03);
+}
+
+.service-box .icon {
+  font-size: 50px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.service-box h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.service-box p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #ddd;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .services {
+    padding: 80px 20px;
+  }
+  .services h2 {
+    font-size: 2rem;
+  }
+  .service-box {
+    padding: 30px 20px;
+  }
+}
+.video-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(8px) brightness(0.6);
+  z-index: 1;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.video-section .content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: #fff;
+}
+
+.video-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  letter-spacing: 3px;
+  font-weight: 600;
+}
+
+.video-section .btn {
+  display: inline-block;
+  padding: 12px 40px;
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  border-radius: 30px;
+}
+
+.video-section .btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+  <div class="nav-container">
+    <div class="logo"><a href="webno1.html" style="text-decoration:none; color:#fff;">TUBLING</a></div>
+        <!-- ✅ Hamburger -->
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+    <nav class="nav-links">
+  <!-- ✅ Search Bar -->
+  <form class="search-form" action="#" method="get">
+    <input type="text" placeholder="Search..." name="q">
+    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+  </form>
+  <!-- ✅ End Search Bar -->
+      <hr style="border-left:0.5px solid #fff; height:35px;">
+      <a href="Team.html" class="Ani">Team</a>
+      <hr style="border-left:0.5px solid #fff; height:35px;">
+      <a href="Works.html" class="Ani">Works</a>
+      <hr style="border-left:0.5px solid #fff; height:35px;">
+      <a href="news.html" class="Ani">Contact</a>
+      <hr style="border-left:0.5px solid #fff; height:35px;">
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <video id="heroVideo" autoplay muted loop playsinline>
+    <source src="videona.mp4" type="video/mp4">
+    เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
+  </video>
+  <div class="content" id="heroContent"><p>Scroll</p></div>
+</section>
+
+<section class="about-section">
+  <div class="about-text fade-left">
+    <p style="font-size: 50px;">
+      Tubling is a new-generation freelance team combining experts from various fields of technology and digital arts. We specialize in video editing, motion graphics, 3D animation, graphic design, and multimedia web development.
+  </p>
+    </div>
+</section>
+
+<section class="services">
+  <h2 class="fade-right">OUR SERVICES</h2>
+  <p class="sub fade-right">We bring creative vision to life through our expertise.</p>
+
+  <div class="service-grid">
+    <div class="service-box fade-left">
+      <i class="fa-solid fa-clapperboard icon"></i>
+      <h3>Production</h3>
+      <p>
+        From shooting to editing, we provide complete video production services — including planning, directing, and post-production for all types of visual media.
+      </p>
+    </div>
+
+    <div class="service-box fade-left">
+      <i class="fa-solid fa-pen-nib icon"></i>
+      <h3>Graphic Design</h3>
+      <p>
+        We design impactful visuals that communicate ideas clearly — from branding, key visuals, to digital layouts and marketing materials.
+      </p>
+    </div>
+
+    <div class="service-box fade-right">
+      <i class="fa-solid fa-paintbrush icon"></i>
+      <h3>Drawing</h3>
+      <p>
+        We create detailed illustrations and concept art for digital media, animation, and print. Every piece is drawn with creativity and emotional depth.
+      </p>
+    </div>
+
+    <div class="service-box fade-right">
+      <i class="fa-solid fa-bolt icon"></i>
+      <h3>Motion Graphics</h3>
+      <p>
+        We create dynamic animations, kinetic typography, and motion visuals that bring ideas to life with style and energy.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="video-section">
+  <video autoplay muted loop playsinline class="bg-video">
+    <source src="forskip.mp4" type="video/mp4">
+  </video>
+
+  <div class="overlay"></div>
+
+  <div class="content">
+    <h2>OUR WORKS</h2>
+    <a href="Works.html" class="btn">ENTER</a>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="review-header">
+    <h2>WHAT THEY SAY</h2>
+    <h3>from our users</h3>
+    <p id="visitCount" class="visit-count">
+      <i class="fa-solid fa-user"></i> This website has been visited a total of <span id="countNumber">0</span> times.
+    </p>
+  </div>
+
+  <div class="review-section">
+    <div class="review-box">
+      <div class="stars">★★★★★</div>
+      <p id="reviewText">
+        The work looks very professional! The photos are stunning and communicate the message clearly. Great attention to detail in every step!
+      </p>
+      <div class="reviewer">
+        <img id="reviewImg" src="person1.jpg" alt="Reviewer">
+        <div>
+          <h4 id="reviewName">Somchai Jeera</h4>
+          <p id="reviewRole">UI/UX Designer</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+// 🔸 Smooth fade transition between sections
+const allSections = document.querySelectorAll("section");
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("active");
+    } else {
+      entry.target.classList.remove("active");
+    }
+  });
+}, { threshold: 0.5 });
+
+allSections.forEach((sec) => sectionObserver.observe(sec));
+
+
+  /* ✅ Hamburger Toggle */
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  navLinks.classList.toggle('active');
+});
+
+/* Hero fade on scroll */
+const video = document.getElementById('heroVideo');
+const content = document.getElementById('heroContent');
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const heroHeight = window.innerHeight;
+  const opacity = Math.max(1 - scrollY / (heroHeight / 2), 0);
+  video.style.opacity = opacity;
+  content.style.opacity = Math.max(1 - scrollY / (heroHeight / 3), 0);
+  content.style.transform = `translateY(${scrollY / 5}px)`;
+});
+
+/* Fade in sections */
+const fadeEls = document.querySelectorAll('.fade-left, .fade-right');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+fadeEls.forEach(el => observer.observe(el));
+
+const reviews = [
+  {
+    text: "The work looks very professional! The photos are stunning and communicate the message clearly. Great attention to detail in every step!",
+    name: "Somchai Jeera",
+    role: "UI/UX Designer",
+    img: "person1.jpg"
+  },
+  {
+    text: "I really admire the concept and presentation of the team. It’s unique and truly inspires the audience!",
+    name: "Charin Teenaajan",
+    role: "Creative Director",
+    img: "person2.jpg"
+  },
+  {
+    text: "This project showcases outstanding creativity and problem-solving skills. The results are fantastic!",
+    name: "Phakphum Sarawee",
+    role: "Project Manager",
+    img: "person3.jpg"
+  },
+  {
+    text: "The quality of the work speaks volumes about the team’s dedication. Everything feels polished and impressive!",
+    name: "Kritsada Jaknara",
+    role: "Art Director",
+    img: "person4.jpg"
+  }
+];
+
+let current = 0;
+const box = document.querySelector('.review-box');
+const text = document.getElementById('reviewText');
+const nameEl = document.getElementById('reviewName');
+const role = document.getElementById('reviewRole');
+const img = document.getElementById('reviewImg');
+
+function showReview(index){
+  box.classList.add('fade-out');
+  setTimeout(() => {
+    const r = reviews[index];
+    text.textContent = r.text;
+    nameEl.textContent = r.name;
+    role.textContent = r.role;
+    img.src = r.img;
+    box.classList.remove('fade-out');
+  }, 600);
+}
+
+function nextReview(){
+  current = (current + 1) % reviews.length;
+  showReview(current);
+}
+setInterval(nextReview, 5000);
+
+
+// ==== ตัวนับจำนวนผู้ใช้งานแบบจำลอง ====
+let count = localStorage.getItem("visitCount");
+if (!count) count = 0;
+count++;
+localStorage.setItem("visitCount", count);
+
+// ทำให้ตัวเลขค่อย ๆ นับขึ้น
+let display = document.getElementById("countNumber");
+let start = 0;
+let end = parseInt(count);
+let duration = 1500;
+let stepTime = 10;
+let steps = duration / stepTime;
+let increment = end / steps;
+
+let counter = setInterval(() => {
+  start += increment;
+  if (start >= end) {
+    start = end;
+    clearInterval(counter);
+  }
+  display.textContent = Math.floor(start).toLocaleString();
+}, stepTime);
+</script>
+</body>
+</html>
