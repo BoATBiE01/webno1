@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Works</title>
+<style>
+  * {margin: 0; padding: 0; box-sizing: border-box;}
+  body {
+    background: #000;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  section.category {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    padding: 0 8vw;
+    position: relative;
+  }
+
+  .category .left {
+    flex: 0 0 25%;
+    font-size: 4vw;
+    font-weight: 800;
+    letter-spacing: -1px;
+    border-left: 4px solid #fff;
+    padding-left: 1vw;
+  }
+
+  .category .right {
+    flex: 0 0 70%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-gap: 1.5rem;
+  }
+
+  .work {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: transform .3s ease, filter .3s ease;
+  }
+
+  .work img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s ease;
+  }
+
+  .work:hover img {
+    transform: scale(1.05);
+    filter: brightness(70%) blur(2px);
+  }
+
+  .work:hover::after {
+    content: attr(data-title);
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+</style>
+</head>
+<body>
+
+<section class="category" id="production">
+  <div class="left">Production</div>
+  <div class="right">
+    <div class="work" data-title="Work 1"><img src="คลองบางหลวง.jpg" alt=""></div>
+    <div class="work" data-title="Work 2"><img src="https://via.placeholder.com/400x500" alt=""></div>
+    <div class="work" data-title="Work 3"><img src="https://via.placeholder.com/400x500" alt=""></div>
+    <div class="work" data-title="Work 4"><img src="https://via.placeholder.com/400x500" alt=""></div>
+  </div>
+</section>
+
+<section class="category" id="graphic-design">
+  <div class="left">Graphic Design</div>
+  <div class="right">
+    <div class="work" data-title="Poster"><img src="https://via.placeholder.com/400x500" alt=""></div>
+    <div class="work" data-title="Album Cover"><img src="https://via.placeholder.com/400x500" alt=""></div>
+    <div class="work" data-title="Typography"><img src="https://via.placeholder.com/400x500" alt=""></div>
+  </div>
+</section>
+
+<section class="category" id="drawing">
+  <div class="left">Drawing</div>
+  <div class="right">
+    <div class="work" data-title="Sketch 1"><img src="https://via.placeholder.com/400x500" alt=""></div>
+    <div class="work" data-title="Character"><img src="https://via.placeholder.com/400x500" alt=""></div>
+    <div class="work" data-title="Concept Art"><img src="https://via.placeholder.com/400x500" alt=""></div>
+  </div>
+</section>
+
+<section class="category" id="motion-graphics">
+  <div class="left">Motion Graphics</div>
+  <div class="right">
+    <div class="work" data-title="Animation 1"><img src="https://via.placeholder.com/400x500" alt=""></div>
+    <div class="work" data-title="Music Visualizer"><img src="https://via.placeholder.com/400x500" alt=""></div>
+  </div>
+</section>
+
+</body>
+</html>
