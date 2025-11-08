@@ -2,375 +2,401 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
+<meta name="description" content="Tubling Official — A freelance team specializing in visual production, design, and digital innovation.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=BBH+Sans+Bartle&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<meta name="description" content="Tubling Official - รวมผลงานด้าน Animation, Motion Graphics, Web Design และ Video Editing.">
-<link rel="icon" type="image/png" href="logo.png">
+<link href="https://fonts.googleapis.com/css2?family=TASA+Explorer:wght@400..800&display=swap" rel="stylesheet">
 <title>Tubling official</title>
 
 <style>
-/* Reset */
-* { margin:0; padding:0; box-sizing:border-box; }
-
-body {
-  font-family: "Prompt", sans-serif;
-  background: #000;
-  color: #fff;
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;scroll-behavior:smooth;}
+body{
+  font-family:'Prompt',sans-serif;
+  background-color:#000;
+  color:#fff;
+  overflow-x:hidden;
+  background-size:cover;
+  background-position:center;
+  transition:background-image 0.5s ease-in-out;
 }
-hr { border: 1px solid #fff; width: 50%; margin: 20px auto; }
+
+.workss {
+  text-align: center;
+  padding: 100px 0 20px;
+  text-decoration: underline;
+}
+
+/* --- BG Overlay --- */
+.bg-overlay{
+  position:fixed;
+  inset:0;
+  background-color:#000;
+  background-size:cover;
+  background-position:center;
+  z-index:-1;
+  filter: blur(15px) brightness(40%);
+  opacity:0;
+  transition:opacity 0.6s ease, background-image 0.6s ease;
+}
+.bg-overlay.active{opacity:1;}
 
 /* Navbar */
-.navbar {
-  position: fixed;
-  top:0; left:0;
-  width:100%;
-  height:70px;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(8px);
-  display:flex;
-  justify-content:center;
-  align-items:center;
+.navbar{
+  position:fixed;top:0;left:0;width:100%;height:70px;
+  background:rgba(0,0,0,0.8);
+  backdrop-filter:blur(8px);
+  display:flex;justify-content:center;align-items:center;
   z-index:1000;
 }
-.nav-container {
+.nav-container{
+  width:100%;max-width:2000px;padding:0 60px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.logo{
+  font-family:"BBH Sans Bartle",sans-serif;font-size:30px;
+  color:white;font-weight:400;
+}
+.nav-links{
+  display:flex;align-items:center;gap:25px;
+}
+.nav-links a{
+  color:white;text-decoration:none;font-weight:600;letter-spacing:1px;
+  transition:color 0.3s ease;
+}
+.nav-links a:hover{color:#ccc;}
+.nav-links a:nth-child(6):hover{color:#00f0b5;}
+.search-form{
+  display:flex;align-items:center;
+  background:rgba(255,255,255,0.1);
+  border-radius:20px;padding:4px 10px;
+  transition:background 0.3s ease;
+}
+.search-form:hover{background:rgba(255,255,255,0.2);}
+.search-form input{
+  background:transparent;border:none;outline:none;
+  color:#fff;font-size:14px;width:100px;
+  transition:width 0.3s ease;
+}
+.search-form input:focus{width:150px;}
+.search-form button{
+  background:none;border:none;color:#fff;font-size:16px;cursor:pointer;
+}
+.search-form button:hover{color:#ccc;}
+.hamburger{
+  display:none;font-size:28px;color:#fff;cursor:pointer;z-index:1001;
+  background:rgba(255,255,255,0.1);padding:8px 12px;border-radius:10px;
+  transition:all 0.3s ease;
+}
+.hamburger.active i{transform:rotate(90deg);transition:transform 0.3s ease;}
+.hamburger:hover{background:rgba(255,255,255,0.2);}
+@media (max-width:1024px){
+  .nav-container{padding:0 30px;}
+  .nav-links{
+    position:fixed;top:70px;right:0;
+    background:rgba(0,0,0,0.9);
+    backdrop-filter:blur(10px);
+    flex-direction:column;align-items:center;gap:20px;
+    width:100%;max-height:0;overflow:hidden;
+    transition:max-height 0.4s ease;
+  }
+  .nav-links.active{max-height:400px;padding:30px 0;}
+  .hamburger{display:block;}
+}
+
+/* Layout Split */
+.year-section{
+  display:flex;
+  min-height:100vh;
   width:100%;
-  max-width:2000px;
-  padding:0 60px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+  opacity:0;
+  transform: translateY(80px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
-.logo {
-  font-family: "BBH Sans Bartle", sans-serif;
-  font-size:30px;
-  color:white;
-  font-weight:400;
+.year-section.entering {
+  opacity: 1;
+  transform: translateY(0);
 }
-.nav-links {
+.year-section.leaving {
+  opacity: 0;
+  transform: translateY(-80px);
+}
+.year-section.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+.section-left{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  padding-left:80px;
+  position:sticky;
+  top:0;
+  height:100vh;
+}
+.section-right{
+  flex:1.5;
   display:flex;
   align-items:center;
+  justify-content:center;
+  padding:60px;
+}
+.year-title{
+  font-size:60px;font-weight:700;
+  border-left:6px solid #00f0b5;
+  padding-left:20px;margin-bottom:20px;
+}
+.sub-list{
+  list-style:none;
+  color:#777;
+}
+.sub-list li{
+  margin:8px 0;
+  font-size:16px;
+  transition:color 0.3s;
+}
+.sub-list li.active{color:#fff;}
+.sub-list li:hover{color:#00f0b5;}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
   gap:25px;
 }
-.nav-links a {
-  color:white;
-  text-decoration:none;
-  font-weight:600;
-  letter-spacing:1px;
+.card{
+  position:relative;overflow:hidden;border-radius:10px;
+  transition:transform 0.4s,opacity 0.4s;
+  opacity:0;transform:translateY(30px);
 }
-.nav-links a:hover { color:#ccc; }
-
-/* ✅ Search Bar */
-.search-form {
-  display: flex;
-  align-items: center;
-  background: rgba(255,255,255,0.1);
-  border-radius: 20px;
-  padding: 4px 10px;
-  transition: background 0.3s ease;
+.card.visible{opacity:1;transform:translateY(0);}
+.card img{
+  width:100%;height:100%;object-fit:cover;transition:0.4s;
 }
-
-.search-form:hover {
-  background: rgba(255,255,255,0.2);
-}
-
-.search-form input {
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #fff;
-  font-size: 14px;
-  width: 100px;
-  transition: width 0.3s ease;
-}
-
-.search-form input:focus {
-  width: 150px;
-}
-
-.search-form button {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.search-form button:hover {
-  color: #ccc;
-}
-
-/* 🔹 สำหรับมือถือ: ย่อขนาด */
-@media (max-width: 600px) {
-  .search-form input {
-    width: 70px;
-  }
-  .search-form input:focus {
-    width: 100px;
-  }
-}
-
-/* Desktop */
-@media (min-width: 1025px) {
-  .about-section { flex-direction: row; padding: 100px 120px; }
-  .about-text h2 { font-size: 3rem; }
-  .slider-container { width: 960px; height: 540px; }
-}
-
-/* iPad */
-@media (max-width: 1024px) and (min-width: 601px) {
-  .navbar { height:65px; }
-  .nav-container { padding:0 30px; }
-  .logo { font-size:24px; }
-  .nav-links a { font-size:15px; }
-
-  .about-section {
-    flex-direction:column;
-    text-align:center;
-    gap:40px;
-    padding:80px 40px;
-  }
-
-  .about-image img { max-width:400px; margin-left:0; }
-
-  .slider-container { width:720px; height:405px; }
-  .arrow { font-size:36px; }
-}
-
-/* iPhone */
-@media (max-width: 600px) {
-  .navbar { height:55px; }
-  .logo { font-size:18px; }
-  .nav-container { padding:0 15px; }
-  .nav-links { gap:10px; }
-  .nav-links a { font-size:13px; }
-
-  .hero { height:80dvh; }
-
-  .about-section {
-    flex-direction:column;
-    text-align:center;
-    padding:60px 20px;
-  }
-
-  .about-text h2 { font-size:1.8rem; }
-  .about-text p { font-size:0.9rem; }
-
-  .about-image img {
-    max-width:85%;
-    margin-left:0;
-  }
-
-  .slider-container {
-    width:100%;
-    aspect-ratio:16/9;
-    height:auto;
-  }
-
-  .slide {
-    height:auto;
-    aspect-ratio:16/9;
-  }
-
-  .arrow {
-    font-size:28px;
-    padding:8px 12px;
-    background:rgba(0,0,0,0.5);
-  }
-
-  .dots span { width:6px; height:6px; }
-}
-/* Portfolio Section */
-.portfolio {
-  padding: 100px 40px;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 20px;
-  color: #fff;
-  max-width: 1300px;
-  margin: 120px auto;
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
-}
-
-.portfolio h2 {
-  font-size: 2.8rem;
-  margin-bottom: 60px;
-  letter-spacing: 1px;
-}
-
-/* ✅ 2 x 2 layout */
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 คอลัมน์ */
-  grid-template-rows: repeat(2, auto);  /* 2 แถว */
-  gap: 50px; /* ระยะห่าง */
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-/* กล่องผลงาน */
-.portfolio-item {
-  position: relative;
-  background-size: cover;
-  background-position: center;
-  height: 320px;
-  border-radius: 18px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
-}
-
-.portfolio-item:hover {
+.card:hover img {
+  filter: blur(2px) brightness(60%);
   transform: scale(1.05);
-  box-shadow: 0 25px 50px rgba(255, 255, 255, 0.1);
+  transition: transform 0.5s ease, filter 0.5s ease;
 }
-
-/* Overlay */
-.portfolio-item .overlay {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 25px 20px;
-  background: rgba(0, 0, 0, 0.65);
-  color: #fff;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.4s ease;
+.card .title{
+  position:absolute;bottom:20px;left:20px;opacity:0;
+  transition:0.4s;font-weight:600;font-size:18px;
 }
+.card:hover .title{opacity:1;}
 
-.portfolio-item:hover .overlay {
-  opacity: 1;
-  transform: translateY(0);
+/* Footer */
+.footer{
+  background:#000;color:#fff;padding:80px 60px 40px;
+  border-top:1px solid rgba(255,255,255,0.1);
 }
-
-.portfolio-item h3 {
-  margin: 0 0 10px 0;
-  font-size: 1.5rem;
+.footer-container{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  flex-wrap:wrap;gap:60px;max-width:1400px;margin:0 auto;
 }
-
-.portfolio-item p {
-  font-size: 1rem;
-  margin-bottom: 10px;
+.footer-left h2{
+  font-family:"BBH Sans Bartle",sans-serif;font-size:32px;margin-bottom:15px;
 }
-
-/* Button */
-.btn {
-  display: inline-block;
-  padding: 8px 16px;
-  background: #fff;
-  color: #000;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: 600;
-  transition: background 0.3s ease, color 0.3s ease;
+.footer-left p{color:#bbb;line-height:1.7;max-width:400px;}
+.footer-center h3,.footer-right h3{font-size:1.3rem;margin-bottom:15px;}
+.footer-center ul{list-style:none;padding:0;}
+.footer-center ul li{margin:8px 0;}
+.footer-center ul li a{color:#ccc;text-decoration:none;transition:color 0.3s;}
+.footer-center ul li a:hover{color:#fff;}
+.social-icons{display:flex;gap:15px;margin-bottom:20px;}
+.social-icons a{
+  color:#fff;font-size:20px;background:rgba(255,255,255,0.1);
+  width:38px;height:38px;display:flex;justify-content:center;align-items:center;
+  border-radius:50%;transition:all 0.3s ease;
 }
-
-.btn:hover {
-  background: #ff0066;
-  color: #fff;
-}
-
-/* Hover Effect - ชัดเจนแค่บล็อกที่ชี้ */
-.portfolio-item:hover {
-  transform: scale(1.1);
-  box-shadow: 0 20px 40px rgba(255,255,255,0.2);
-}
-
-.portfolio-item:hover .overlay {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .portfolio {
-    padding: 80px 30px;
-  }
-  .portfolio-grid {
-    grid-template-columns: 1fr 1fr; /* ยังเป็น 2 คอลัมน์ใน tablet */
-    gap: 30px;
-  }
-}
-
-@media (max-width: 700px) {
-  .portfolio {
-    padding: 60px 20px;
-  }
-  .portfolio-grid {
-    grid-template-columns: 1fr; /* เหลือ 1 คอลัมน์บนมือถือ */
-    gap: 25px;
-  }
-  .portfolio-item {
-    height: 250px;
-  }
-}
-
-/*Footer*/
-.footer {
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(5px);
-  padding: 30px 20px;
-  text-align: center;
-  color: #aaa;
-  font-size: 0.9rem;
-}
-
-.footer .social {
-  margin-top: 10px;
-}
-
-.footer .social a {
-  color: #fff;
-  margin: 0 10px;
-  font-size: 1.2rem;
-  transition: color 0.3s ease;
-}
-
-.footer .social a:hover {
-  color: #ff0066;
-}
-
+.social-icons a:hover{background:#fff;color:#000;transform:scale(1.1);}
+.copyright{color:#777;font-size:0.9rem;margin-top:10px;}
 </style>
 </head>
-
 <body>
+
+<div class="bg-overlay" id="bg"></div>
 
 <header class="navbar">
   <div class="nav-container">
-    <div class="logo"><a href="webno1.html" style="text-decoration:none; color:#fff;">TUBLING</a></div>
-        <!-- ✅ Hamburger -->
-    <div class="hamburger" id="hamburger">
-      <span></span><span></span><span></span>
-    </div>
-    <nav class="nav-links">
-  <!-- ✅ Search Bar -->
-  <form class="search-form" action="#" method="get">
-    <input type="text" placeholder="Search..." name="q">
-    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-  </form>
-  <!-- ✅ End Search Bar -->
-      <hr style="border-left:0.5px solid #fff; height:35px;">
-      <a href="Team.html" class="Ani">Team</a>
-      <hr style="border-left:0.5px solid #fff; height:35px;">
-      <a href="Works.html" class="Ani">Works</a>
-      <hr style="border-left:0.5px solid #fff; height:35px;">
-      <a href="news.html" class="Ani">Contact</a>
-      <hr style="border-left:0.5px solid #fff; height:35px;">
+    <div class="logo"><a href="webno1.html" style="text-decoration:none;color:#fff;">TUBLING</a></div>
+    <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
+    <nav class="nav-links" id="navLinks">
+      <form class="search-form" action="#" method="get">
+        <input type="text" placeholder="Search..." name="q">
+        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
+      <hr style="border-left:0.5px solid #fff;height:35px;">
+      <a href="Team.html">Team</a>
+      <hr style="border-left:0.5px solid #fff;height:35px;">
+      <a href="Works.html">Works</a>
+      <hr style="border-left:0.5px solid #fff;height:35px;">
+      <a href="news.html">Contact</a>
     </nav>
   </div>
 </header>
 
+<div class="workss">
+  <h2>Works</h2>
+</div>
 
+<!-- Section 1 -->
+<section class="year-section" id="y2024">
+  <div class="section-left">
+    <div class="year-title">Graphic Design</div>
+    <ul class="sub-list">
+      <li class="active">Poster Design</li>
+      <li>Logo Concept</li>
+      <li>Album Art</li>
+    </ul>
+  </div>
+  <div class="section-right">
+    <div class="grid">
+      <div class="card"><img src="https://images.unsplash.com/photo-1606112219348-204d7d8b94ee"><div class="title">Poster Design</div></div>
+      <div class="card"><img src="person1.jpg"><div class="title">Logo Concept</div></div>
+      <div class="card"><img src="person2.jpg"><div class="title">Album Art</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 2 -->
+<section class="year-section" id="y2023">
+  <div class="section-left">
+    <div class="year-title">Motion Graphic</div>
+    <ul class="sub-list">
+      <li class="active">Intro Scene</li>
+      <li>Title Animation</li>
+      <li>Loop Motion</li>
+    </ul>
+  </div>
+  <div class="section-right">
+    <div class="grid">
+      <div class="card"><img src="Banner.png"><div class="title">Intro Scene</div></div>
+      <div class="card"><img src="01.png"><div class="title">Title Animation</div></div>
+      <div class="card"><img src="tlauncher.png"><div class="title">Loop Motion</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3 -->
+<section class="year-section" id="y2022">
+  <div class="section-left">
+    <div class="year-title">Production</div>
+    <ul class="sub-list">
+      <li class="active">Film Scene</li>
+      <li>Studio Lighting</li>
+      <li>On Set</li>
+    </ul>
+  </div>
+  <div class="section-right">
+    <div class="grid">
+      <div class="card"><img src="คลองบางหลวง.jpg"><div class="title">Film Scene</div></div>
+      <div class="card"><img src="https://images.unsplash.com/photo-1606112219348-204d7d8b94ee"><div class="title">Studio Lighting</div></div>
+      <div class="card"><img src="https://images.unsplash.com/photo-1605902711622-cfb43c4437d7"><div class="title">On Set</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 4 -->
+<section class="year-section" id="y2021">
+  <div class="section-left">
+    <div class="year-title">Drawing</div>
+    <ul class="sub-list">
+      <li class="active">Sketch</li>
+      <li>Character Design</li>
+      <li>Color Test</li>
+    </ul>
+  </div>
+  <div class="section-right">
+    <div class="grid">
+      <div class="card"><img src="https://images.unsplash.com/photo-1590608897129-79da98d159e0"><div class="title">Sketch</div></div>
+      <div class="card"><img src="https://images.unsplash.com/photo-1606112219348-204d7d8b94ee"><div class="title">Character Design</div></div>
+      <div class="card"><img src="https://images.unsplash.com/photo-1605902711622-cfb43c4437d7"><div class="title">Color Test</div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h2>TUBLING</h2>
+      <p>A new-generation freelance team specializing in visual production, design, and digital innovation.</p>
+    </div>
+    <div class="footer-center">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="Team.html">Team</a></li>
+        <li><a href="Works.html">Works</a></li>
+        <li><a href="news.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-right">
+      <h3>Follow Us</h3>
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+      <p class="copyright">© 2025 Tubling. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
 
 <script>
+document.addEventListener("DOMContentLoaded",()=>{
+  const bg=document.getElementById("bg");
+  const hamburger=document.getElementById("hamburger");
+  const navLinks=document.getElementById("navLinks");
+  hamburger.addEventListener("click",()=>{navLinks.classList.toggle("active");hamburger.classList.toggle("active");});
 
+  const sections=document.querySelectorAll(".year-section");
+  const cards=document.querySelectorAll(".card");
 
+// IntersectionObserver สำหรับ section transition animation
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("entering");
+      entry.target.classList.remove("leaving");
+    } else {
+      // เมื่อ section เลื่อนออกจากหน้าจอ
+      entry.target.classList.remove("entering");
+      entry.target.classList.add("leaving");
+    }
+  });
+}, { threshold: 0.3 });
+
+sections.forEach(section => sectionObserver.observe(section));
+
+  // Fade in cards
+  const cardObserver=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("visible");});
+  },{threshold:0.2});
+  cards.forEach(c=>cardObserver.observe(c));
+
+  // Hover เพื่อเปลี่ยนพื้นหลังและเปลี่ยน active ของ sub-list
+  cards.forEach(card=>{
+    const img=card.querySelector("img");
+    const title=card.querySelector(".title").textContent.trim();
+    const section=card.closest(".year-section");
+    const listItems=section.querySelectorAll(".sub-list li");
+
+    card.addEventListener("mouseenter",()=>{
+      bg.style.backgroundImage=`url(${img.src})`;
+      bg.classList.add("active");
+      listItems.forEach(li=>{
+        li.classList.toggle("active",li.textContent.trim()===title);
+      });
+    });
+    card.addEventListener("mouseleave",()=>{
+      bg.classList.remove("active");
+    });
+  });
+});
 </script>
 </body>
 </html>
