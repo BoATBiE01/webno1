@@ -1,111 +1,1102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio Works</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BBH+Sans+Bartle&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=TASA+Explorer:wght@400..800&display=swap" rel="stylesheet">
+<title>Tubling official</title>
+
 <style>
-  * {margin: 0; padding: 0; box-sizing: border-box;}
-  body {
-    background: #000;
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
+section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+  transition: opacity 1s ease, transform 1s ease;
+  opacity: 0.3;
+  transform: scale(0.98);
+}
+
+section.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Reset */
+* { margin:0; padding:0; box-sizing:border-box; }
+
+p{
+    font-family: "Prompt", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+body {
+  font-family: "Prompt", sans-serif;
+  background: #000;
+  color: #fff;
+  animation: fadeIn 1s ease forwards;
+  
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+hr { border: 1px solid #fff; width: 50%; margin: 20px auto; }
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top:0; left:0;
+  width:100%;
+  height:70px;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(8px);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
+}
+.nav-container {
+  width:100%;
+  max-width:2000px;
+  padding:0 60px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo {
+  font-family: "BBH Sans Bartle", sans-serif;
+  font-size:30px;
+  color:white;
+  font-weight:400;
+}
+.nav-links {
+  display:flex;
+  align-items:center;
+  gap:25px;
+}
+.nav-links a {
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+  letter-spacing:1px;
+}
+.nav-links a:hover { color:#ccc; }
+
+/* ✅ Search Bar */
+.search-form {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 4px 10px;
+  transition: background 0.3s ease;
+}
+
+.search-form:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.search-form input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  width: 100px;
+  transition: width 0.3s ease;
+}
+
+.search-form input:focus {
+  width: 150px;
+}
+
+.search-form button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.search-form button:hover {
+  color: #ccc;
+}
+
+/* ✅ เพิ่มสไตล์ Hamburger */
+.hamburger {
+  display: none;
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
+  z-index: 1001;
+  background: rgba(255,255,255,0.1);
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.hamburger:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* ✅ Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .nav-container {
+    padding: 0 30px;
   }
 
-  section.category {
-    display: flex;
+  .nav-links {
+    position: fixed;
+    top: 70px;
+    right: 0;
+    background: rgba(0,0,0,0.9);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    height: 100vh;
-    padding: 0 8vw;
-    position: relative;
-  }
-
-  .category .left {
-    flex: 0 0 25%;
-    font-size: 4vw;
-    font-weight: 800;
-    letter-spacing: -1px;
-    border-left: 4px solid #fff;
-    padding-left: 1vw;
-  }
-
-  .category .right {
-    flex: 0 0 70%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    grid-gap: 1.5rem;
-  }
-
-  .work {
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-    transition: transform .3s ease, filter .3s ease;
-  }
-
-  .work img {
+    gap: 20px;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform .4s ease;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
   }
 
-  .work:hover img {
-    transform: scale(1.05);
-    filter: brightness(70%) blur(2px);
+  .nav-links.active {
+    max-height: 400px;
+    padding: 30px 0;
   }
 
-  .work:hover::after {
-    content: attr(data-title);
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-weight: 600;
-    text-align: center;
+  .nav-links a {
     font-size: 1.2rem;
   }
+
+  .nav-links {
+  opacity: 0;
+  transform: translateY(-10px); 
+  transition: max-height 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
+}
+
+  .nav-links.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+  .search-form {
+    width: 80%;
+    justify-content: center;
+  }
+
+  .search-form input {
+    width: 100%;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  /* ซ่อนเส้น hr ตอนอยู่ใน mobile menu */
+  .nav-links hr {
+    display: none;
+  }
+}
+
+
+/* ✅ สำหรับมือถือจอเล็ก (<768px) */
+@media (max-width: 768px) {
+  .about-text p {
+    font-size: 1rem;
+  }
+
+  .about-section {
+    flex-direction: column;
+    padding: 60px 20px;
+    gap: 40px;
+  }
+
+  .about-image img {
+    margin-left: 0;
+    width: 90%;
+  }
+
+  .services h2 {
+    font-size: 2rem;
+  }
+
+  .service-box {
+    padding: 30px 20px;
+  }
+
+  .slider-container {
+    width: 100%;
+    height: auto;
+  }
+  .logo {
+  font-family: "BBH Sans Bartle", sans-serif;
+  font-size:24px;
+  color:white;
+  font-weight:400;
+}
+/* Hero Section */
+  .hero .content h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .hero .content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    padding: 0 10px;
+  }
+
+  /* About Section */
+  .about-section {
+    padding: 60px 50px;
+    text-align: center;
+  }
+
+  .about-text p {
+    font-size: 1rem;
+    line-height: 1.7;
+    word-wrap: break-word;
+  }
+
+  .about-image img {
+    width: 90%;
+    max-width: 320px;
+    margin: 30px auto 0;
+  }
+
+  /* Services */
+  .services h2 {
+    font-size: 1.8rem;
+  }
+
+  .services .sub {
+    font-size: 1rem;
+  }
+
+  .service-box h3 {
+    font-size: 1.2rem;
+  }
+
+  .service-box p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* Video Section */
+  .video-section h2 {
+    font-size: 1.6rem;
+  }
+
+  .video-section .btn {
+    font-size: 0.95rem;
+    padding: 8px 25px;
+  }
+
+  /* Reviews */
+  .reviews h2 {
+    font-size: 1.8rem;
+  }
+
+  .reviews h3 {
+    font-size: 0.9rem;
+  }
+
+  .review-box {
+    padding: 25px 20px;
+    max-width: 90%;
+  }
+
+  .review-box p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+    .footer {
+    padding: 60px 30px 30px;
+    text-align: center;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .footer-left p {
+    max-width: 100%;
+    font-size: 0.95rem;
+  }
+
+  .footer-center h3,
+  .footer-right h3 {
+    margin-bottom: 10px;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+
+  .copyright {
+    margin-top: 20px;
+  }
+}
+/* Hero Section */
+.hero {
+  position:relative;
+  width:100%;
+  height:100dvh;
+  overflow:hidden;
+}
+.hero video {
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  transition: opacity 0.5s ease-out;
+}
+.hero .content {
+  position:absolute;
+  bottom:50px;
+  width:100%;
+  text-align:center;
+  z-index:1;
+  padding:0 20px;
+  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+}
+.hero .content p {
+  color: rgba(255,255,255,0.5);
+  font-size:1.2rem;
+  font-weight:300;
+}
+
+/* About Section */
+main { background:black; padding:100px 20px 50px 20px; }
+
+.about-section {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:60px;
+  max-width:2500px;
+  margin:0 auto;
+  padding:80px 80px;
+}
+.about-text { flex:1; }
+.about-text h2 { font-size:3rem; margin-bottom:20px; }
+.about-text p { font-size:1.1rem; line-height:1.8; margin-bottom:15px; color:#ddd; }
+
+
+.about-image img {
+  width:100%; max-width:500px; border-radius:20px;
+  box-shadow:0 0 20px rgba(255,255,255,0.1);
+  transition: transform 0.4s ease;
+  margin-left:100px;
+}
+.about-image img:hover { transform:scale(1.03); }
+
+/* Fade + Slide Animation */
+.fade-left, .fade-right {
+  opacity:0;
+  transform: translateY(50px);
+  transition:opacity 1s ease-out, transform 1s ease-out;
+}
+.fade-left { transform:translateX(-60px); }
+.fade-right { transform:translateX(60px); }
+.fade-left.visible, .fade-right.visible { opacity:1; transform:translateX(0); }
+
+.Ani:hover { transform:scale(1.1); }
+
+/* What We Do */
+.whatwedo {
+  background:#000;
+  text-align:center;
+  padding:100px 20px;
+}
+.whatwedo h2 {
+  font-size:24px;
+  margin-bottom:40px;
+  animation: fadeInDown 1s ease;
+}
+
+/* ✅ SLIDER FIXED */
+.slider-container {
+  position: relative;
+  width: 960px;
+  height: 540px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(255,255,255,0.1);
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.6s ease;
+  width: 100%;
+}
+
+.slide {
+  flex: 0 0 100%;        /* ✅ แก้ให้แต่ละ slide กว้างเท่ากับ container */
+  height: 540px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 15px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Arrows */
+.arrow {
+  font-size:48px;
+  color:#fff;
+  cursor:pointer;
+  user-select:none;
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  transition:all 0.3s ease;
+  background:transparent;
+  padding:12px 20px;
+  backdrop-filter:blur(4px);
+  box-shadow:0 0 10px rgba(255,255,255,0.2);
+}
+.arrow.left { left:-5px; }
+.arrow.right { right:-5px; }
+.arrow:hover {
+  background:rgba(255,255,255,0.35);
+  transform:translateY(-50%) scale(1.1);
+  box-shadow:0 0 20px rgba(255,255,255,0.5);
+}
+
+/* Dots */
+.dots {
+  margin-top:20px;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+}
+.dots span {
+  width:8px; height:8px;
+  background:#777;
+  border-radius:50%;
+  display:inline-block;
+  transition:background 0.3s ease;
+}
+.dots span.active { background:#fff; }
+
+
+
+.reviews {
+  background: linear-gradient(135deg, #000000 0%, #080808 40%, #909090 150%);
+  text-align: center;
+  padding: 100px 20px;
+  color: #fff;
+  font-family: "Prompt", sans-serif;
+}
+
+.reviews h3 {
+  text-transform: uppercase;
+  color: #ccc;
+  letter-spacing: 1px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.reviews h2 {
+  font-size: 60px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.review-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.visit-count {
+  font-size: 18px;
+  color: #bbb;
+  margin-top: 5px;
+}
+.visit-count i {
+  color: #ffffff;
+  margin-right: 8px;
+}
+
+/* กล่องรีวิว */
+.review-section {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.review-box {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  color: #fff;
+  max-width: 500px;
+  padding: 40px 30px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  overflow: hidden; /* ✅ ป้องกันกระตุกตอน fade */
+}
+.review-box.fade-out {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.stars {
+  color: rgb(255, 191, 0);
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.review-box p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 30px;
+  color: #f5f5f5;
+}
+
+.reviewer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.reviewer img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+}
+
+
+.services {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  padding: 120px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.services h2 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+}
+
+.services .sub {
+  color: #ccc;
+  font-size: 1.1rem;
+  margin-bottom: 80px;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.service-box {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+  transition: transform 0.4s ease, background 0.4s ease;
+}
+
+.service-box:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-10px) scale(1.03);
+}
+
+.service-box .icon {
+  font-size: 50px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.service-box h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.service-box p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #ddd;
+}
+
+.video-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(8px) brightness(0.6);
+  z-index: 1;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.video-section .content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: #fff;
+}
+
+.video-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  letter-spacing: 3px;
+  font-weight: 600;
+}
+
+.video-section .btn {
+  display: inline-block;
+  padding: 12px 40px;
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  border-radius: 30px;
+}
+
+.video-section .btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background: #000;
+  color: #fff;
+  padding: 80px 60px 40px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-family: "Prompt", sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+/* ซ้าย */
+.footer-left {
+  flex: 1 1 300px;
+}
+.footer-left h2 {
+  font-family: "BBH Sans Bartle", sans-serif;
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+.footer-left p {
+  color: #bbb;
+  line-height: 1.7;
+  max-width: 400px;
+}
+/* กลาง */
+.footer-center {
+  flex: 1 1 200px;
+}
+.footer-center h3 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+}
+.footer-center ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-center ul li {
+  margin: 8px 0;
+}
+.footer-center ul li a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-center ul li a:hover {
+  color: #fff;
+}
+/* ขวา */
+.footer-right {
+  flex: 1 1 250px;
+}
+.footer-right h3 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+}
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.social-icons a {
+  color: #fff;
+  font-size: 20px;
+  background: rgba(255,255,255,0.1);
+  width: 38px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+.social-icons a:hover {
+  background: #fff;
+  color: #000;
+  transform: scale(1.1);
+}
+.copyright {
+  color: #777;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
 </style>
 </head>
+
 <body>
 
-<section class="category" id="production">
-  <div class="left">Production</div>
-  <div class="right">
-    <div class="work" data-title="Work 1"><img src="คลองบางหลวง.jpg" alt=""></div>
-    <div class="work" data-title="Work 2"><img src="https://via.placeholder.com/400x500" alt=""></div>
-    <div class="work" data-title="Work 3"><img src="https://via.placeholder.com/400x500" alt=""></div>
-    <div class="work" data-title="Work 4"><img src="https://via.placeholder.com/400x500" alt=""></div>
+<header class="navbar">
+  <div class="nav-container">
+    <div class="logo"><a href="webno1.html" style="text-decoration:none; color:#fff;">TUBLING</a></div>
+  <!-- ✅ เพิ่มปุ่ม Hamburger -->
+    <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
+    
+    <nav class="nav-links" id="navLinks">
+  <!-- ✅ Search Bar -->
+  <form class="search-form" action="#" method="get">
+    <input type="text" placeholder="Search..." name="q">
+    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+  </form>
+  <!-- ✅ End Search Bar -->
+      <hr style="border-left:0.5px solid #fff; height:35px;">
+      <a href="Team.html" class="Ani">Team</a>
+      <hr style="border-left:0.5px solid #fff; height:35px;">
+      <a href="Works.html" class="Ani">Works</a>
+      <hr style="border-left:0.5px solid #fff; height:35px;">
+      <a href="news.html" class="Ani">Contact</a>
+      <hr style="border-left:0.5px solid #fff; height:35px;">
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <video id="heroVideo" autoplay muted loop playsinline>
+    <source src="videona.mp4" type="video/mp4">
+    เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
+  </video>
+  <div class="content" id="heroContent"><p>Scroll</p></div>
+</section>
+
+<section class="about-section">
+  <div class="about-text fade-left">
+    <p style="font-size: clamp(25px, 5vw, 50px);">
+      Tubling is a new-generation freelance team combining experts from various fields of technology and digital arts. We specialize in video editing, motion graphics, 3D animation, graphic design, and multimedia web development.
+  </p>
+    </div>
+</section>
+
+<section class="services">
+  <h2 class="fade-right">OUR SERVICES</h2>
+  <p class="sub fade-right">We bring creative vision to life through our expertise.</p>
+
+  <div class="service-grid">
+    <div class="service-box fade-left">
+      <i class="fa-solid fa-clapperboard icon"></i>
+      <h3>Production</h3>
+      <p>
+        From shooting to editing, we provide complete video production services — including planning, directing, and post-production for all types of visual media.
+      </p>
+    </div>
+
+    <div class="service-box fade-left">
+      <i class="fa-solid fa-pen-nib icon"></i>
+      <h3>Graphic Design</h3>
+      <p>
+        We design impactful visuals that communicate ideas clearly — from branding, key visuals, to digital layouts and marketing materials.
+      </p>
+    </div>
+
+    <div class="service-box fade-right">
+      <i class="fa-solid fa-paintbrush icon"></i>
+      <h3>Drawing</h3>
+      <p>
+        We create detailed illustrations and concept art for digital media, animation, and print. Every piece is drawn with creativity and emotional depth.
+      </p>
+    </div>
+
+    <div class="service-box fade-right">
+      <i class="fa-solid fa-bolt icon"></i>
+      <h3>Motion Graphics</h3>
+      <p>
+        We create dynamic animations, kinetic typography, and motion visuals that bring ideas to life with style and energy.
+      </p>
+    </div>
   </div>
 </section>
 
-<section class="category" id="graphic-design">
-  <div class="left">Graphic Design</div>
-  <div class="right">
-    <div class="work" data-title="Poster"><img src="https://via.placeholder.com/400x500" alt=""></div>
-    <div class="work" data-title="Album Cover"><img src="https://via.placeholder.com/400x500" alt=""></div>
-    <div class="work" data-title="Typography"><img src="https://via.placeholder.com/400x500" alt=""></div>
+<section class="video-section">
+  <video autoplay muted loop playsinline class="bg-video">
+    <source src="forskip.mp4" type="video/mp4">
+  </video>
+
+  <div class="overlay"></div>
+
+  <div class="content">
+    <h2>OUR WORKS</h2>
+    <a href="Works.html" class="btn">ENTER</a>
   </div>
 </section>
 
-<section class="category" id="drawing">
-  <div class="left">Drawing</div>
-  <div class="right">
-    <div class="work" data-title="Sketch 1"><img src="https://via.placeholder.com/400x500" alt=""></div>
-    <div class="work" data-title="Character"><img src="https://via.placeholder.com/400x500" alt=""></div>
-    <div class="work" data-title="Concept Art"><img src="https://via.placeholder.com/400x500" alt=""></div>
+<section class="reviews">
+  <div class="review-header">
+    <h2>WHAT THEY SAY</h2>
+    <h3>from our users</h3>
+    <p id="visitCount" class="visit-count">
+      <i class="fa-solid fa-user"></i> This website has been visited a total of <span id="countNumber">0</span> times.
+    </p>
+  </div>
+
+  <div class="review-section">
+    <div class="review-box">
+      <div class="stars">★★★★★</div>
+      <p id="reviewText">
+        The work looks very professional! The photos are stunning and communicate the message clearly. Great attention to detail in every step!
+      </p>
+      <div class="reviewer">
+        <img id="reviewImg" src="person1.jpg" alt="Reviewer">
+        <div>
+          <h4 id="reviewName">Somchai Jeera</h4>
+          <p id="reviewRole">UI/UX Designer</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h2>TUBLING</h2>
+      <p>A new-generation freelance team specializing in visual production, design, and digital innovation.</p>
+    </div>
 
-<section class="category" id="motion-graphics">
-  <div class="left">Motion Graphics</div>
-  <div class="right">
-    <div class="work" data-title="Animation 1"><img src="https://via.placeholder.com/400x500" alt=""></div>
-    <div class="work" data-title="Music Visualizer"><img src="https://via.placeholder.com/400x500" alt=""></div>
+    <div class="footer-center">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="Team.html">Team</a></li>
+        <li><a href="Works.html">Works</a></li>
+        <li><a href="news.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-right">
+      <h3>Follow Us</h3>
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+      <p class="copyright">© 2025 Tubling. All rights reserved.</p>
+    </div>
   </div>
-</section>
+</footer>
 
+<script>
+// 🔸 Smooth fade transition between sections
+const allSections = document.querySelectorAll("section");
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("active");
+    } else {
+      entry.target.classList.remove("active");
+    }
+    if (window.innerWidth <= 768) {
+  allSections.forEach(sec => sec.classList.add("active"));
+}
+  });
+}, { threshold: 0.5 });
+
+allSections.forEach((sec) => sectionObserver.observe(sec));
+
+
+
+/* Hero fade on scroll */
+const video = document.getElementById('heroVideo');
+const content = document.getElementById('heroContent');
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const heroHeight = window.innerHeight;
+  const opacity = Math.max(1 - scrollY / (heroHeight / 2), 0);
+  video.style.opacity = opacity;
+  content.style.opacity = Math.max(1 - scrollY / (heroHeight / 3), 0);
+  content.style.transform = `translateY(${scrollY / 5}px)`;
+});
+
+/* Fade in sections */
+const fadeEls = document.querySelectorAll('.fade-left, .fade-right');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+fadeEls.forEach(el => observer.observe(el));
+
+
+const reviews = [
+  {
+    text: "The work looks very professional! The photos are stunning and communicate the message clearly. Great attention to detail in every step!",
+    name: "Somchai Jeera",
+    role: "UI/UX Designer",
+    img: "person1.jpg"
+  },
+  {
+    text: "I really admire the concept and presentation of the team. It’s unique and truly inspires the audience!",
+    name: "Charin Teenaajan",
+    role: "Creative Director",
+    img: "person2.jpg"
+  },
+  {
+    text: "This project showcases outstanding creativity and problem-solving skills. The results are fantastic!",
+    name: "Phakphum Sarawee",
+    role: "Project Manager",
+    img: "person3.jpg"
+  },
+  {
+    text: "The quality of the work speaks volumes about the team’s dedication. Everything feels polished and impressive!",
+    name: "Kritsada Jaknara",
+    role: "Art Director",
+    img: "person4.jpg"
+  }
+];
+
+let current = 0;
+const box = document.querySelector('.review-box');
+const text = document.getElementById('reviewText');
+const nameEl = document.getElementById('reviewName');
+const role = document.getElementById('reviewRole');
+const img = document.getElementById('reviewImg');
+
+function showReview(index){
+  box.classList.add('fade-out');
+  setTimeout(() => {
+    const r = reviews[index];
+    text.textContent = r.text;
+    nameEl.textContent = r.name;
+    role.textContent = r.role;
+    img.src = r.img;
+    box.classList.remove('fade-out');
+  }, 600);
+}
+
+function nextReview(){
+  current = (current + 1) % reviews.length;
+  showReview(current);
+}
+setInterval(nextReview, 5000);
+
+
+// ==== ตัวนับจำนวนผู้ใช้งานแบบจำลอง ====
+let count = localStorage.getItem("visitCount");
+if (!count) count = 0;
+count++;
+localStorage.setItem("visitCount", count);
+
+// ทำให้ตัวเลขค่อย ๆ นับขึ้น
+let display = document.getElementById("countNumber");
+let start = 0;
+let end = parseInt(count);
+let duration = 1500;
+let stepTime = 10;
+let steps = duration / stepTime;
+let increment = end / steps;
+
+let counter = setInterval(() => {
+  start += increment;
+  if (start >= end) {
+    start = end;
+    clearInterval(counter);
+  }
+  display.textContent = Math.floor(start).toLocaleString();
+}, stepTime);
+
+// ✅ Toggle Hamburger Menu
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+  hamburger.classList.toggle('open');
+
+  // เปลี่ยน icon เป็น X ตอนเปิด
+  const icon = hamburger.querySelector('i');
+  if (navLinks.classList.contains('active')) {
+    icon.classList.replace('fa-bars', 'fa-xmark');
+  } else {
+    icon.classList.replace('fa-xmark', 'fa-bars');
+  }
+});
+
+</script>
 </body>
 </html>

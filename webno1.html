@@ -43,10 +43,12 @@ body {
   animation: fadeIn 1s ease forwards;
   
 }
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
 hr { border: 1px solid #fff; width: 50%; margin: 20px auto; }
 
 /* Navbar */
@@ -146,6 +148,16 @@ hr { border: 1px solid #fff; width: 50%; margin: 20px auto; }
   background: rgba(255,255,255,0.2);
 }
 
+/* Animation for icon change */
+.hamburger i {
+  transition: transform 0.3s ease, opacity 0.2s ease;
+}
+
+.hamburger.active i {
+  transform: rotate(90deg);
+  opacity: 0.8;
+}
+
 /* ✅ Responsive Breakpoints */
 @media (max-width: 1024px) {
   .nav-container {
@@ -236,12 +248,7 @@ hr { border: 1px solid #fff; width: 50%; margin: 20px auto; }
     width: 100%;
     height: auto;
   }
-  .logo {
-  font-family: "BBH Sans Bartle", sans-serif;
-  font-size:24px;
-  color:white;
-  font-weight:400;
-}
+
 /* Hero Section */
   .hero .content h1 {
     font-size: 2rem;
@@ -318,6 +325,13 @@ hr { border: 1px solid #fff; width: 50%; margin: 20px auto; }
     font-size: 0.95rem;
     line-height: 1.6;
   }
+  .logo {
+  font-family: "BBH Sans Bartle", sans-serif;
+  font-size:24px;
+  color:white;
+  font-weight:400;
+}
+
     .footer {
     padding: 60px 30px 30px;
     text-align: center;
@@ -347,6 +361,7 @@ hr { border: 1px solid #fff; width: 50%; margin: 20px auto; }
     margin-top: 20px;
   }
 }
+
 /* Hero Section */
 .hero {
   position:relative;
@@ -825,11 +840,13 @@ main { background:black; padding:100px 20px 50px 20px; }
   </form>
   <!-- ✅ End Search Bar -->
       <hr style="border-left:0.5px solid #fff; height:35px;">
+      <a href="webno1.html" class="Ani">Home</a>
+      <hr style="border-left:0.5px solid #fff; height:35px;">
       <a href="Team.html" class="Ani">Team</a>
       <hr style="border-left:0.5px solid #fff; height:35px;">
       <a href="Works.html" class="Ani">Works</a>
       <hr style="border-left:0.5px solid #fff; height:35px;">
-      <a href="news.html" class="Ani">Contact</a>
+      <a href="Contact.html" class="Ani">Contact</a>
       <hr style="border-left:0.5px solid #fff; height:35px;">
     </nav>
   </div>
@@ -1088,14 +1105,16 @@ hamburger.addEventListener('click', () => {
   navLinks.classList.toggle('active');
   hamburger.classList.toggle('open');
 
-  // เปลี่ยน icon เป็น X ตอนเปิด
-  const icon = hamburger.querySelector('i');
-  if (navLinks.classList.contains('active')) {
-    icon.classList.replace('fa-bars', 'fa-xmark');
-  } else {
-    icon.classList.replace('fa-xmark', 'fa-bars');
-  }
+  // เปลี่ยนไอคอน
+    if (navLinks.classList.contains("active")) {
+      icon.classList.remove("fa-bars");
+      icon.classList.add("fa-xmark");
+    } else {
+      icon.classList.remove("fa-xmark");
+      icon.classList.add("fa-bars");
+    }
 });
+
 
 </script>
 </body>
